@@ -46,7 +46,7 @@ namespace Sid.Jwt.Token.Authorization.Server
                 var errMessage = $"Bad request. Request method is {context.Request.Method}. Request Content Type is {context.Request.ContentType}";
                 _logger?.LogError(errMessage);
 
-                context.Response.StatusCode = 400;
+                context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
                 return context.Response.WriteAsync(errMessage);
             }
