@@ -33,7 +33,15 @@ namespace Sid.Jwt.Token.Authorization.Server.Sample
             // Add framework services.
             services.AddMvc();
 
-            services.AddSingleton<IUserManager, UserManager>();
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("mysupersecret_secretkey!123"));
+            services.AddJwtTokenAuthorizationServer(options =>
+            {
+                options.Audience = "ExampleAudience";
+                options.Issuer = "ExampleIssuer";
+                options.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+            }, provider => new UserFinder());
+
+            //services.AddSingleton<IUserFinder, UserFinder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,12 +81,7 @@ namespace Sid.Jwt.Token.Authorization.Server.Sample
 
             #region Jwt Token Authorization Server
 
-            app.UseJwtTokenAuthorizationServer(new JwtTokenAuthorizationServerOptions
-            {
-                Audience = "ExampleAudience",
-                Issuer = "ExampleIssuer",
-                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
-            });
+            app.UseJwtTokenAuthorizationServer();
 
             #endregion
 

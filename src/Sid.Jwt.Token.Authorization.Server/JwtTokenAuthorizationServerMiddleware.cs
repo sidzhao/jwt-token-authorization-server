@@ -14,18 +14,18 @@ namespace Sid.Jwt.Token.Authorization.Server
     public class JwtTokenAuthorizationServerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IUserManager _userManager;
+        private readonly IUserFinder _userFinder;
         private readonly JwtTokenAuthorizationServerOptions _options;
         private readonly ILogger<JwtTokenAuthorizationServerMiddleware> _logger;
 
         public JwtTokenAuthorizationServerMiddleware(
             RequestDelegate next,
-            IUserManager userManager,
+            IUserFinder userFinder,
             IOptions<JwtTokenAuthorizationServerOptions> options,
             ILogger<JwtTokenAuthorizationServerMiddleware> logger = null)
         {
             _next = next;
-            _userManager = userManager;
+            _userFinder = userFinder;
             _options = options.Value;
             _logger = logger;
         }
@@ -59,7 +59,7 @@ namespace Sid.Jwt.Token.Authorization.Server
             _logger?.LogDebug("Attempting to get identity.");
 
             // Try to get identity (sign in)
-            var identity = await _userManager.GetIdentity(context);
+            var identity = await _userFinder.GetIdentity(context);
             if (identity == null)
             {
                 _logger?.LogError("Invalid username or password.");

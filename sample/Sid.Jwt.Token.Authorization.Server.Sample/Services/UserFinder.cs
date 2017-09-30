@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Sid.Jwt.Token.Authorization.Server.Sample.Services
 {
-    public class UserManager : IUserManager
+    public class UserFinder : IUserFinder
     {
         public async Task<ClaimsIdentity> GetIdentity(HttpContext context)
         {
