@@ -110,8 +110,9 @@ namespace Sid.Jwt.Token.Authorization.Server
 
             _logger?.LogDebug($"Jwt token generated successful.");
 
-            var response = new
+            var response = new AccessToken
             {
+                scheme = "Bearer",
                 access_token = encodedJwt,
                 expires_in = (int)_options.Expiration.TotalSeconds
             };

@@ -9,7 +9,8 @@
     <PackageProjectUrl>https://github.com/sidzhao/jwt-token-authorization-server</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sidzhao/jwt-token-authorization-server.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
